@@ -1,35 +1,69 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main() {
     string kode;
+    cout << "Masukkan kode transaksi (8 digit): ";
     cin >> kode;
 
-    string hari = kode.substr(0,2);
-    string loyal = kode.substr(2,2);
-    int belanja = stoi(kode.substr(4,4));
+    // Ambil bagian kode
+    string kodeHari = kode.substr(0, 2);
+    string kodePelanggan = kode.substr(2, 2);
+    int jumlahUnit = stoi(kode.substr(4, 4)); // dalam 100.000
 
+    // Konversi jumlah belanja
+    long long jumlahBelanja = jumlahUnit * 100000;
+
+    // Tentukan jenis hari
+    string jenisHari;
+    if (kodeHari == "01") jenisHari = "Hari Kerja";
+    else if (kodeHari == "02") jenisHari = "Akhir Pekan";
+    else if (kodeHari == "03") jenisHari = "Hari Libur Nasional";
+    else {
+        cout << "Kode tidak valid.";
+        return 0;
+    }
+
+    // Tentukan jenis pelanggan
+    string jenisPelanggan;
+    if (kodePelanggan == "01") jenisPelanggan = "Biasa";
+    else if (kodePelanggan == "02") jenisPelanggan = "Silver";
+    else if (kodePelanggan == "03") jenisPelanggan = "Gold";
+    else {
+        cout << "Kode tidak valid.";
+        return 0;
+    }
+
+    // Tentukan poin per 100.000
     int poinPerUnit = 0;
 
-    if (hari == "01") { // hari kerja
-        if (loyal == "01") poinPerUnit = 1;
-        else if (loyal == "02") poinPerUnit = 2;
-        else if (loyal == "03") poinPerUnit = 3;
+    if (kodeHari == "01") { // Hari kerja
+        if (kodePelanggan == "01") poinPerUnit = 1;
+        else if (kodePelanggan == "02") poinPerUnit = 2;
+        else if (kodePelanggan == "03") poinPerUnit = 3;
     }
-    else if (hari == "02") { // weekend
-        if (loyal == "01") poinPerUnit = 2;
-        else if (loyal == "02") poinPerUnit = 3;
-        else if (loyal == "03") poinPerUnit = 5;
+    else if (kodeHari == "02") { // Weekend
+        if (kodePelanggan == "01") poinPerUnit = 2;
+        else if (kodePelanggan == "02") poinPerUnit = 3;
+        else if (kodePelanggan == "03") poinPerUnit = 5;
     }
-    else if (hari == "03") { // libur
-        if (loyal == "01") poinPerUnit = 3;
-        else if (loyal == "02") poinPerUnit = 5;
-        else if (loyal == "03") poinPerUnit = 7;
+    else if (kodeHari == "03") { // Libur
+        if (kodePelanggan == "01") poinPerUnit = 3;
+        else if (kodePelanggan == "02") poinPerUnit = 5;
+        else if (kodePelanggan == "03") poinPerUnit = 7;
     }
 
-    int totalPoin = poinPerUnit * belanja;
+    // Hitung total poin
+    int totalPoin = poinPerUnit * jumlahUnit;
 
-    cout << "Total poin: " << totalPoin;
+    // Output sesuai soal
+    cout << "Jenis Hari: " << jenisHari << endl;
+    cout << "Jenis Pelanggan: " << jenisPelanggan << endl;
+    cout << "Jumlah Belanja: Rp " << jumlahBelanja << endl;
+    cout << "Total Poin: " << totalPoin << endl;
+
+    return 0;
 }
 
 /*
