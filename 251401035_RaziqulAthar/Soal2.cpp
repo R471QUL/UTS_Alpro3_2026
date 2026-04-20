@@ -35,6 +35,7 @@ int main() {
     cout << "Durasi: " << jam << " jam\n";
     cout << "Biaya: " << biaya;
 }
+
 /*
 ALGORITMA SISTEM PARKIR:
 
