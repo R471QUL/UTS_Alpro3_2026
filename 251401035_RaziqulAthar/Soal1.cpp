@@ -4,20 +4,33 @@ using namespace std;
 
 int main() {
     string kartu;
+    cout << "Masukkan nomor kartu digital: ";
     cin >> kartu;
 
     int panjang = kartu.length();
+    string tipe = "";
     bool validJenis = false;
 
-    // cek jenis kartu
-    if (panjang == 14 && kartu.substr(0,2) == "65") validJenis = true;
-    else if (panjang == 16 && (kartu.substr(0,2) == "77" || kartu.substr(0,2) == "78")) validJenis = true;
-    else if (panjang == 15 && kartu.substr(0,2) == "91") validJenis = true;
+    if (panjang == 14 && kartu.substr(0,2) == "65") {
+        tipe = "NUSANTARA";
+        validJenis = true;
+    }
+    else if (panjang == 16 && (kartu.substr(0,2) == "77" || kartu.substr(0,2) == "78")) {
+        tipe = "GARUDA";
+        validJenis = true;
+    }
+    else if (panjang == 15 && kartu.substr(0,2) == "91") {
+        tipe = "MERDEKA";
+        validJenis = true;
+    }
 
     if (!validJenis) {
-        cout << "Kartu tidak valid (jenis salah)";
+        cout << "Tipe kartu: TIDAK DIKENALI\n";
+        cout << "Nomor kartu TIDAK VALID.";
         return 0;
     }
+
+    cout << "Tipe kartu: " << tipe << endl;
 
     int total = 0;
     bool kali2 = true;
@@ -27,20 +40,24 @@ int main() {
 
         if (kali2) {
             digit *= 2;
-            if (digit > 9) digit = digit/10 + digit%10;
+            if (digit > 9)
+                digit = digit - 9; 
         }
 
         total += digit;
         kali2 = !kali2;
     }
 
-    total += kartu[panjang-1] - '0';
+    total += kartu[panjang - 1] - '0';
 
     if (total % 10 == 0)
-        cout << "Kartu VALID";
+        cout << "Nomor kartu VALID.";
     else
-        cout << "Kartu TIDAK VALID";
+        cout << "Nomor kartu TIDAK VALID.";
+
+    return 0;
 }
+
 /*
 ALGORITMA VALIDASI KARTU DIGITAL:
 
