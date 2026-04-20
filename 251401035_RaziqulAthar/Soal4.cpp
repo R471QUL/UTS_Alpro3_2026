@@ -4,17 +4,22 @@ using namespace std;
 int main() {
     int N;
     string S;
-    cin >> N >> S;
+
+    // Input
+    cin >> N;
+    cin >> S;
 
     int poinA = 0, poinB = 0;
     int streakA = 0, streakB = 0;
 
+    // Proses tiap babak
     for (int i = 0; i < N; i++) {
         if (S[i] == 'A') {
             poinA += 3;
             streakA++;
             streakB = 0;
 
+            // bonus jika 3x berturut
             if (streakA == 3) {
                 poinA += 2;
                 streakA = 0;
@@ -30,13 +35,15 @@ int main() {
                 streakB = 0;
             }
         }
-        else {
+        else if (S[i] == 'C') {
             poinA += 1;
             poinB += 1;
-            streakA = streakB = 0;
+            streakA = 0;
+            streakB = 0;
         }
     }
 
+    // Output
     cout << "Poin A: " << poinA << endl;
     cout << "Poin B: " << poinB << endl;
 
@@ -46,6 +53,8 @@ int main() {
         cout << "Pemenangnya adalah pemain B";
     else
         cout << "Hasil pertandingan Seri!";
+
+    return 0;
 }
 
 /*
